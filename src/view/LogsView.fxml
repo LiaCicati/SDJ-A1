@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="570.0" prefWidth="745.0" spacing="30.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DetailsViewController">
+    <children>
+        <MenuBar prefHeight="26.0" prefWidth="689.0">
+            <menus>
+                <Menu mnemonicParsing="false" onAction="#back" style="-fx-font-size: 20px;" text="Heater">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#back" text="Open" />
+               </items></Menu>
+                <Menu disable="true" mnemonicParsing="false" style="-fx-font-size: 20px;" text="Logs" />
+            </menus>
+        </MenuBar>
+      <VBox alignment="CENTER" prefHeight="473.0" prefWidth="745.0" spacing="10.0">
+         <children>
+                <TableView fx:id="temperatureListTable" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="430.0" prefWidth="648.0">
+                    <columns>
+                        <TableColumn fx:id="nameColumn" prefWidth="219.0" text="Thermometer" />
+                        <TableColumn fx:id="temperatureColumn" prefWidth="210.0" text="Temperature" />
+                        <TableColumn fx:id="timeColumn" prefWidth="208.0" text="Time" />
+                    </columns>
+                </TableView>
+         </children>
+      </VBox>
+    </children>
+</VBox>
