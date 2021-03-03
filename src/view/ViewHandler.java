@@ -36,7 +36,7 @@ public class ViewHandler
         root = loadThermometerView("ThermometersView.fxml");
         break;
       case "logs":
-        root = loadDetailsView("LogsView.fxml");
+        root = loadLogsView("LogsView.fxml");
         break;
     }
     currentScene.setRoot(root);
@@ -52,7 +52,7 @@ public class ViewHandler
     primaryStage.show();
   }
 
-  private Region loadDetailsView(String fxmlFile)
+  private Region loadLogsView(String fxmlFile)
   {
     if (detailsViewController == null)
     {

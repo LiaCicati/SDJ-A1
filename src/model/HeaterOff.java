@@ -14,7 +14,7 @@ public class HeaterOff extends HeaterState
 
   @Override public void clickDown(Heater heater)
   {
-
+    System.out.println("Min state reached");
   }
   
 }

@@ -2,14 +2,14 @@ package model;
 
 public class HeaterHigh extends HeaterState
 {
-  private Thread time;
+  private Thread timer;
   private boolean completed;
 
   public HeaterHigh(Heater heater)
   {
     System.out.println("Heater high");
     heater.setPower(3);
-    time = new Thread(() -> {
+    timer = new Thread(() -> {
       try
       {
         Thread.sleep(5000);
@@ -17,10 +17,10 @@ public class HeaterHigh extends HeaterState
       }
       catch (InterruptedException e)
       {
-      e.printStackTrace();
+        e.printStackTrace();
       }
     });
-    time.start();
+    timer.start();
 
   }
 
@@ -41,7 +41,7 @@ public class HeaterHigh extends HeaterState
   @Override public void clickDown(Heater heater)
   {
 
-    time.interrupt();
+    timer.interrupt();
 
   }
 }

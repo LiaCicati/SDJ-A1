@@ -40,7 +40,7 @@ public ObservableList<DataTableView> getList()
 
   @Override public void propertyChange(PropertyChangeEvent event)
   {
-    if (event.getPropertyName().equals("ThermometerTemperature") || event.getPropertyName().equals("outsideTemperature")){
+    if (event.getPropertyName().equals("ThermometerTemperature") || event.getPropertyName().equals("outdoorTemperature")){
       list.add(new DataTableView((Temperature) event.getNewValue()));
     }
   }

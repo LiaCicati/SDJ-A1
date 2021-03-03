@@ -151,7 +151,7 @@ public class TemperatureModelManager implements TemperatureModel
 
   @Override public void propertyChange(PropertyChangeEvent event)
   {
-    if (event.getPropertyName().equals("ThermometerTemperature") || event.getPropertyName().equals("outsideTemperature")){
+    if (event.getPropertyName().equals("ThermometerTemperature") || event.getPropertyName().equals("outdoorTemperature")){
       temperatureList.addTemperature((Temperature) event.getNewValue());
     }
   }

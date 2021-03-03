@@ -12,12 +12,12 @@ import java.util.Optional;
 
 public class ThermometerViewController
 {
-  @FXML private Label fistThermometerLabel;
-  @FXML private Label secondThermometerLabel;
-  @FXML private Label outsideThermometerLabel;
+  @FXML private Label indoorThermometer1;
+  @FXML private Label indoorThermometer2;
+  @FXML private Label outdoorThermometer;
   @FXML private Label heaterLabel;
-  @FXML public Label secondThermometerWaringLabel;
-  @FXML public Label firstThermometerWarningLabel;
+  @FXML public Label indoorThermometer1Warning;
+  @FXML public Label indoorThermometer2Warning;
   @FXML public Label criticalLowLabel;
   @FXML public Label criticalHighLabel;
   @FXML private TextField highValue;
@@ -35,16 +35,16 @@ public class ThermometerViewController
     this.root = root;
 
     heaterLabel.textProperty().bind(viewModel.getPowerProperty());
-    firstThermometerWarningLabel.textProperty()
+    indoorThermometer1Warning.textProperty()
         .bind(viewModel.firstThermometerWarningProperty());
-    secondThermometerWaringLabel.textProperty()
+    indoorThermometer2Warning.textProperty()
         .bind(viewModel.secondThermometerWarningProperty());
 
-    Bindings.bindBidirectional(fistThermometerLabel.textProperty(),
+    Bindings.bindBidirectional(indoorThermometer1.textProperty(),
         viewModel.getFirstIndoorProperty(), new StringIntegerConverter(0));
-    Bindings.bindBidirectional(secondThermometerLabel.textProperty(),
+    Bindings.bindBidirectional(indoorThermometer2.textProperty(),
         viewModel.getSecondIndoorProperty(), new StringIntegerConverter(0));
-    Bindings.bindBidirectional(outsideThermometerLabel.textProperty(),
+    Bindings.bindBidirectional(outdoorThermometer.textProperty(),
         viewModel.getOutdoorProperty(), new StringIntegerConverter(0));
 
     Bindings.bindBidirectional(criticalHighLabel.textProperty(),

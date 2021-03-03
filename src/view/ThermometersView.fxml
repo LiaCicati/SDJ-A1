@@ -21,7 +21,7 @@
                 <Menu disable="true" mnemonicParsing="false" style="-fx-font-size: 20px;" text="Heater" />
                 <Menu mnemonicParsing="false" onAction="#openLogs" style="-fx-font-size: 20px;" text="Logs">
                     <items>
-                        <MenuItem mnemonicParsing="false"  text="Open" />
+                        <MenuItem mnemonicParsing="false" text="Open" />
                     </items></Menu>
             </menus>
         </MenuBar>
@@ -59,26 +59,26 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="fistThermometerLabel" prefHeight="26.0" prefWidth="143.0" text="cvcvcdfddddfdfddfdf" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label fx:id="indoorThermometer1" prefHeight="26.0" prefWidth="143.0" text="cvcvcdfddddfdfddfdf" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="secondThermometerLabel" prefHeight="28.0" prefWidth="145.0" text="vcvvvvvvvvvvvcvvvvvvvc" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Label fx:id="indoorThermometer2" prefHeight="28.0" prefWidth="145.0" text="vcvvvvvvvvvvvcvvvvvvvc" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <Label fx:id="outsideThermometerLabel" prefHeight="25.0" prefWidth="144.0" text="fgfgfgggggggggggg" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <Label fx:id="outdoorThermometer" prefHeight="25.0" prefWidth="144.0" text="fgfgfgggggggggggg" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
-            <Label fx:id="firstThermometerWarningLabel" prefHeight="31.0" prefWidth="235.0" text="Label" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Label fx:id="indoorThermometer1Warning" prefHeight="31.0" prefWidth="235.0" text="Label" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="secondThermometerWaringLabel" prefHeight="25.0" prefWidth="243.0" text="Label" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Label fx:id="indoorThermometer2Warning" prefHeight="25.0" prefWidth="243.0" text="Label" textFill="RED" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <font>
                   <Font size="16.0" />
                </font></Label>

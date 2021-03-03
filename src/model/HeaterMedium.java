@@ -7,6 +7,7 @@ public class HeaterMedium extends HeaterState
     System.out.println("Heater Medium");
     heater.setPower(2);
   }
+
   @Override public void clickUp(Heater heater)
   {
     heater.setState(new HeaterHigh(heater));
@@ -16,6 +17,5 @@ public class HeaterMedium extends HeaterState
   {
     heater.setState(new HeaterLow(heater));
   }
-
 
 }
