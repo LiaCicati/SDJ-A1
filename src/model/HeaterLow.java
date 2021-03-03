@@ -1,16 +1,16 @@
 package model;
 
-public class Heater1 extends HeaterState
+public class HeaterLow extends HeaterState
 {
 
-  public Heater1(Heater heater)
+  public HeaterLow(Heater heater)
   {
     System.out.println("Heater Low");
     heater.setPower(1);
   }
   @Override public void clickUp(Heater heater)
   {
-    heater.setState(new Heater2(heater));
+    heater.setState(new HeaterMedium(heater));
   }
 
   @Override public void clickDown(Heater heater)

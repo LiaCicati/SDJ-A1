@@ -9,12 +9,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-public class DetailsViewModel implements PropertyChangeListener
+public class LogsViewModel implements PropertyChangeListener
 {
   private TemperatureModel model;
   private ObservableList<DataTableView> list;
 
-  public DetailsViewModel(TemperatureModel model)
+  public LogsViewModel(TemperatureModel model)
   {
     this.model = model;
     this.list = FXCollections.observableArrayList();

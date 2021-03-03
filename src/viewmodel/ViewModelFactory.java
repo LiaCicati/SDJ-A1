@@ -4,19 +4,19 @@ import mediator.TemperatureModel;
 
 public class ViewModelFactory
 {
-  private DetailsViewModel detailsViewModel;
+  private LogsViewModel logsViewModel;
   private ThermometerViewModel thermometerViewModel;
 
   public ViewModelFactory(TemperatureModel model)
   {
-    this.detailsViewModel = new DetailsViewModel(model);
+    this.logsViewModel = new LogsViewModel(model);
     this.thermometerViewModel = new ThermometerViewModel(model);
 
   }
 
-  public DetailsViewModel getDetailsViewModel()
+  public LogsViewModel getLogsViewModel()
   {
-    return detailsViewModel;
+    return logsViewModel;
   }
 
   public ThermometerViewModel getThermometerViewModel()

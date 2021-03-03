@@ -17,19 +17,12 @@ public interface TemperatureModel extends PropertyChangeListener,UnnamedProperty
   void turnDown();
   int getTemperatureListSize();
   int getHeaterPower();
-
   double getOutsideTemperature();
   double getFirstThermometerTemperature();
   double getSecondThermometerTemperature();
-
   Temperature getHighCriticalValue();
   Temperature getLowCriticalValue();
-
-
   Heater getHeater();
-  Temperature getLastInsertedTemperature();
-
-  Temperature getLastInsertedTemperature(String id);
   ArrayList<Temperature> getAllTemp();
 
 }

@@ -30,8 +30,8 @@ public class TemperatureModelManager implements TemperatureModel
     outsideTempThread.setDaemon(true);
     outsideTempThread.start();
 
-    firstTemperature = new Thermometer(10,"th1",1,this);
-    secondTemperature = new Thermometer(10, "th2",7, this);
+    firstTemperature = new Thermometer(10,"Indoor thermometer 1",1,this);
+    secondTemperature = new Thermometer(10, "Indoor thermometer 2",7, this);
     Thread firstTempThread = new Thread(firstTemperature);
     Thread secondTempThread = new Thread(secondTemperature);
     firstTempThread.setDaemon(true);
@@ -47,8 +47,8 @@ public class TemperatureModelManager implements TemperatureModel
     firstTemperature.addListener(this);
     secondTemperature.addListener(this);
 
-    lowCriticalValue = new Temperature("lowCriticalValue",12);
-    highCriticalValue = new Temperature("highCriticalValue",18);
+    lowCriticalValue = new Temperature("lowCriticalValue",10);
+    highCriticalValue = new Temperature("highCriticalValue",20);
 
   }
 
@@ -57,10 +57,7 @@ public class TemperatureModelManager implements TemperatureModel
     temperatureList.addTemperature(temperature);
   }
 
-  @Override public synchronized Temperature getLastInsertedTemperature()
-  {
-    return temperatureList.getLastTemperature(null);
-  }
+
   @Override public Temperature getLowCriticalValue()
   {
     return lowCriticalValue;
@@ -76,11 +73,6 @@ public class TemperatureModelManager implements TemperatureModel
     return temperatureList.getSize();
   }
 
-  @Override public synchronized Temperature getLastInsertedTemperature(
-      String id)
-  {
-    return temperatureList.getLastTemperature(id);
-  }
 
   @Override public void setCriticalLowTemperature(double criticalLowTemperatureValue)
   {

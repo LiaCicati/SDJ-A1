@@ -5,9 +5,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import viewmodel.DataTableView;
-import viewmodel.DetailsViewModel;
+import viewmodel.LogsViewModel;
 
-public class DetailsViewController
+public class LogsViewController
 {
   @FXML private TableView<DataTableView> temperatureListTable;
   @FXML private TableColumn<DataTableView,String> nameColumn;
@@ -15,15 +15,14 @@ public class DetailsViewController
   @FXML private TableColumn<DataTableView,String> timeColumn;
 
   private Region root;
-  private DetailsViewModel viewModel;
+  private LogsViewModel viewModel;
   private ViewHandler viewHandler;
 
-  public DetailsViewController()
+  public LogsViewController()
   {
-
   }
 
-  public void init(ViewHandler viewHandler,DetailsViewModel viewModel, Region root )
+  public void init(ViewHandler viewHandler, LogsViewModel viewModel, Region root )
   {
     this.viewModel = viewModel;
     this.viewHandler = viewHandler;
@@ -40,10 +39,6 @@ public class DetailsViewController
     );
     temperatureListTable.setItems(viewModel.getList());
 
-    temperatureListTable.setSelectionModel(null);
-    nameColumn.setSortable(false);
-    temperatureColumn.setSortable(false);
-    timeColumn.setSortable(false);
   }
 
   public void reset()
@@ -55,9 +50,9 @@ public class DetailsViewController
     return root;
   }
 
-  @FXML public void back()
+  @FXML private void openMainView()
   {
-    viewHandler.openView("thermometer");
+    viewHandler.openView("thermometers");
   }
 
 }

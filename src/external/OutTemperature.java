@@ -44,7 +44,7 @@ public class OutTemperature implements Runnable, UnnamedPropertyChangeSubject
     {
       currentTemperature = externalTemperature(currentTemperature, minTemp, maxTemp);
       property.firePropertyChange("outsideTemperature", null,
-          new Temperature("OutsideTemperature", currentTemperature));
+          new Temperature("Outside Temperature", currentTemperature));
       System.out
           .printf("Outside temperature: %.2f Min:%.2f Max:%.2f\n", currentTemperature,
               maxTemp, maxTemp);

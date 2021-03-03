@@ -7,13 +7,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="570.0" prefWidth="745.0" spacing="30.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DetailsViewController">
+<VBox prefHeight="570.0" prefWidth="745.0" spacing="30.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LogsViewController">
     <children>
         <MenuBar prefHeight="26.0" prefWidth="689.0">
             <menus>
-                <Menu mnemonicParsing="false" onAction="#back" style="-fx-font-size: 20px;" text="Heater">
+                <Menu mnemonicParsing="false" onAction="#openMainView" style="-fx-font-size: 20px;" text="Heater">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#back" text="Open" />
+                  <MenuItem mnemonicParsing="false"  text="Open" />
                </items></Menu>
                 <Menu disable="true" mnemonicParsing="false" style="-fx-font-size: 20px;" text="Logs" />
             </menus>

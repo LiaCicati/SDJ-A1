@@ -25,7 +25,6 @@ public class ThermometerViewModel implements PropertyChangeListener
   private StringProperty secondThermometerWarning;
   private StringProperty errorProperty;
 
-
   public ThermometerViewModel(TemperatureModel model)
   {
     this.model = model;
@@ -45,11 +44,9 @@ public class ThermometerViewModel implements PropertyChangeListener
     this.highValueProperty = new SimpleDoubleProperty();
     this.lowValueProperty = new SimpleDoubleProperty();
 
-
-getAll();
+    getAll();
     model.addListener(this);
   }
-
 
   public void getAll()
   {
@@ -89,19 +86,19 @@ getAll();
   {
     if (model.getFirstThermometerTemperature() > model.getHighCriticalValue()
         .getValue())
-      firstThermometerWarning.set("Too High!");
+      firstThermometerWarning.set("Temperature is too high!");
     else if (model.getFirstThermometerTemperature() < model
         .getLowCriticalValue().getValue())
-      firstThermometerWarning.set("Too Low!");
+      firstThermometerWarning.set("Temperature is too low!");
     else
       firstThermometerWarning.set("");
 
     if (model.getSecondThermometerTemperature() > model.getHighCriticalValue()
         .getValue())
-      secondThermometerWarning.set("Too High!");
+      secondThermometerWarning.set("Temperature is too high!");
     else if (model.getSecondThermometerTemperature() < model
         .getLowCriticalValue().getValue())
-      secondThermometerWarning.set("Too Low!");
+      secondThermometerWarning.set("Temperature is too low!");
     else
       secondThermometerWarning.set("");
   }
@@ -118,19 +115,17 @@ getAll();
 
   public DoubleProperty setCriticalHighTemperature()
   {
-//    model.setCriticalHighTemperature(highValueProperty.get());
     return setHighTemperature;
   }
 
   public void submit()
   {
     model.setCriticalHighTemperature(setHighTemperature.getValue());
-model.setCriticalLowTemperature(setLowTemperature.getValue());
+    model.setCriticalLowTemperature(setLowTemperature.getValue());
   }
 
   public DoubleProperty setCriticalLowTemperature()
   {
-//    model.setCriticalLowTemperature(lowValueProperty.get());
     return setLowTemperature;
   }
 
@@ -179,25 +174,26 @@ model.setCriticalLowTemperature(setLowTemperature.getValue());
     return secondThermometerWarning;
   }
 
-
-
   @Override public void propertyChange(PropertyChangeEvent event)
   {
     Platform.runLater(() -> {
-      switch (event.getPropertyName()){
+      switch (event.getPropertyName())
+      {
         case "ThermometerTemperature":
-          Temperature tmp = (Temperature)event.getNewValue();
-          if (tmp.getId().equals("th1")){
+          Temperature tmp = (Temperature) event.getNewValue();
+          if (tmp.getId().equals("Indoor thermometer 1"))
+          {
             firstIndoorProperty.set(tmp.getValue());
           }
-          else if (tmp.getId().equals("th2")){
+          else if (tmp.getId().equals("Indoor thermometer 2"))
+          {
             secondIndoorProperty.set(tmp.getValue());
           }
           checkWarnings();
           break;
 
         case "outsideTemperature":
-          outdoorProperty.set(((Temperature)event.getNewValue()).getValue());
+          outdoorProperty.set(((Temperature) event.getNewValue()).getValue());
           break;
 
         case "power":
@@ -205,18 +201,17 @@ model.setCriticalLowTemperature(setLowTemperature.getValue());
           break;
 
         case "criticalTemperatureChange":
-          Temperature temp = (Temperature)event.getNewValue();
-          if (temp.getId().equals("lowCriticalValue")){
+          Temperature temp = (Temperature) event.getNewValue();
+          if (temp.getId().equals("lowCriticalValue"))
+          {
             lowValueProperty.set(temp.getValue());
           }
-          else if (temp.getId().equals("highCriticalValue")){
+          else if (temp.getId().equals("highCriticalValue"))
+          {
             highValueProperty.set(temp.getValue());
           }
           checkWarnings();
           break;
-
-//        default:
-//          System.out.println("Error, unknown property " + event.getPropertyName());
       }
     });
   }

@@ -11,7 +11,7 @@ public class ViewHandler
   private Scene currentScene;
   private Stage primaryStage;
   private ViewModelFactory viewModelFactory;
-  private DetailsViewController detailsViewController;
+  private LogsViewController detailsViewController;
   private ThermometerViewController thermometerViewController;
 
   public ViewHandler(ViewModelFactory viewModelFactory)
@@ -23,18 +23,19 @@ public class ViewHandler
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
-    openView("thermometer");
+    openView("thermometers");
 
   }
+
   public void openView(String id)
   {
     Region root = null;
     switch (id)
     {
-      case "thermometer":
-        root =loadThermometerView("ThermometersView.fxml") ;
+      case "thermometers":
+        root = loadThermometerView("ThermometersView.fxml");
         break;
-      case "details":
+      case "logs":
         root = loadDetailsView("LogsView.fxml");
         break;
     }
@@ -51,7 +52,6 @@ public class ViewHandler
     primaryStage.show();
   }
 
-
   private Region loadDetailsView(String fxmlFile)
   {
     if (detailsViewController == null)
@@ -62,7 +62,8 @@ public class ViewHandler
         loader.setLocation(getClass().getResource(fxmlFile));
         Region root = loader.load();
         detailsViewController = loader.getController();
-        detailsViewController.init(this,viewModelFactory.getDetailsViewModel(),root);
+        detailsViewController
+            .init(this, viewModelFactory.getLogsViewModel(), root);
       }
       catch (Exception e)
       {
@@ -78,7 +79,7 @@ public class ViewHandler
 
   private Region loadThermometerView(String fxmlFile)
   {
-    if(thermometerViewController == null)
+    if (thermometerViewController == null)
     {
       try
       {
@@ -86,7 +87,8 @@ public class ViewHandler
         loader.setLocation(getClass().getResource(fxmlFile));
         Region root = loader.load();
         thermometerViewController = loader.getController();
-        thermometerViewController.init(this, viewModelFactory.getThermometerViewModel(),root);
+        thermometerViewController
+            .init(this, viewModelFactory.getThermometerViewModel(), root);
       }
       catch (Exception e)
       {
@@ -98,6 +100,6 @@ public class ViewHandler
       thermometerViewController.reset();
     }
     return thermometerViewController.getRoot();
-    }
   }
+}
 

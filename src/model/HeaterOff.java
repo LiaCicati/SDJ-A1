@@ -9,7 +9,7 @@ public class HeaterOff extends HeaterState
   }
   @Override public void clickUp(Heater heater)
   {
-    heater.setState(new Heater1(heater));
+    heater.setState(new HeaterLow(heater));
   }
 
   @Override public void clickDown(Heater heater)

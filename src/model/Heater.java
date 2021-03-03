@@ -34,7 +34,6 @@ public class Heater implements UnnamedPropertyChangeSubject
     this.state = state;
   }
 
-
   public int getPower()
   {
     return power;

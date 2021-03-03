@@ -61,16 +61,15 @@ public class Thermometer implements Runnable, UnnamedPropertyChangeSubject
 
   @Override public void run()
   {
-    Random random = new Random();
     int waitTime = 6;
     while (true){
       t = internalTemperature(t,model.getHeaterPower(), d,model.getOutsideTemperature(),waitTime);
       property.firePropertyChange("ThermometerTemperature", null, new Temperature(id, t));
-      System.out.println("Thermometer id=" + id + " Temperature=" + t + " last measurement:" + waitTime);
-      waitTime = 4 + random.nextInt(5);
+      System.out.println("Thermometer id: " + id + ", Temperature: " + t );
+
       try
       {
-        Thread.sleep(waitTime*1000);
+        Thread.sleep(6000);
       }
       catch (InterruptedException e)
       {

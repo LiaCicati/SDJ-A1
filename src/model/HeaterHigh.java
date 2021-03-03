@@ -1,11 +1,11 @@
 package model;
 
-public class Heater3 extends HeaterState
+public class HeaterHigh extends HeaterState
 {
   private Thread time;
   private boolean completed;
 
-  public Heater3(Heater heater)
+  public HeaterHigh(Heater heater)
   {
     System.out.println("Heater high");
     heater.setPower(3);
@@ -26,26 +26,14 @@ public class Heater3 extends HeaterState
 
   @Override public void clickUp(Heater heater)
   {
-    System.out.println("Can not turn it up. It is max power");
-    //    time = new Thread(() -> {
-    //      try
-    //      {
-    //        Thread.sleep(1000);
-    //        timeout(heater);
-    //      }
-    //      catch (InterruptedException e)
-    //      {
-    //        System.out.println("Can not turn it up. It is max power");
-    //      }
-    //    });
-    //    time.start();
+    System.out.println("Max state reached");
   }
 
   private void timeout(Heater heater)
   {
     if (!completed)
     {
-      heater.setState(new Heater2(heater));
+      heater.setState(new HeaterMedium(heater));
       completed = true;
     }
   }
