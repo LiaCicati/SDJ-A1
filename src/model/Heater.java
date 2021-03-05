@@ -1,22 +1,27 @@
 package model;
 
+import mediator.TemperatureModel;
 import utility.observer.subject.UnnamedPropertyChangeSubject;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class Heater implements UnnamedPropertyChangeSubject
+public class Heater
 {
 
   private HeaterState state;
-  private int power;
-  PropertyChangeSupport property;
+
 
   public Heater()
   {
-    this.property = new PropertyChangeSupport(this);
-    this.state = new HeaterOff(this);
 
+    this.state = new HeaterOff();
+
+  }
+
+  public void startTimer(TemperatureModel model)
+  {
+    state.startTimer(this, model);
   }
 
   public void clickUp()
@@ -33,25 +38,41 @@ public class Heater implements UnnamedPropertyChangeSubject
   {
     this.state = state;
   }
+  public String getStatus()
+  {
+    return state.getState();
+  }
 
   public int getPower()
   {
-    return power;
+    switch (getStatus())
+    {
+      case "Off":
+        return 0;
+      case "Low":
+        return 1;
+      case "Medium":
+        return 2;
+      case "High":
+        return 3;
+      default:
+        return -1;
+    }
   }
 
-  public void setPower(int power)
-  {
-    this.power = power;
-    this.property.firePropertyChange("power", null, power);
-  }
+//  public void setPower(int power)
+//  {
+//    this.power = power;
+////    this.property.firePropertyChange("power", null, power);
+//  }
 
-  @Override public void addListener(PropertyChangeListener listener)
-  {
-    property.addPropertyChangeListener(listener);
-  }
-
-  @Override public void removeListener(PropertyChangeListener listener)
-  {
-    property.addPropertyChangeListener(listener);
-  }
+//  @Override public void addListener(PropertyChangeListener listener)
+//  {
+//    property.addPropertyChangeListener(listener);
+//  }
+//
+//  @Override public void removeListener(PropertyChangeListener listener)
+//  {
+//    property.addPropertyChangeListener(listener);
+//  }
 }

@@ -2,19 +2,19 @@ package model;
 
 public class HeaterOff extends HeaterState
 {
-  public HeaterOff(Heater heater)
-  {
-    System.out.println("Heater Off");
-    heater.setPower(0);
-  }
   @Override public void clickUp(Heater heater)
   {
-    heater.setState(new HeaterLow(heater));
+    heater.setState(new HeaterLow());
   }
 
   @Override public void clickDown(Heater heater)
   {
     System.out.println("Min state reached");
   }
-  
+
+  @Override public String getState()
+  {
+    return "Off";
+  }
+
 }
