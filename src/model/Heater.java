@@ -59,20 +59,4 @@ public class Heater
         return -1;
     }
   }
-
-//  public void setPower(int power)
-//  {
-//    this.power = power;
-////    this.property.firePropertyChange("power", null, power);
-//  }
-
-//  @Override public void addListener(PropertyChangeListener listener)
-//  {
-//    property.addPropertyChangeListener(listener);
-//  }
-//
-//  @Override public void removeListener(PropertyChangeListener listener)
-//  {
-//    property.addPropertyChangeListener(listener);
-//  }
 }

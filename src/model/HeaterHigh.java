@@ -11,7 +11,7 @@ public class HeaterHigh extends HeaterState
     this.timer = new Thread(() -> {
       try
       {
-        Thread.sleep(2000);
+        Thread.sleep(6000);
         heater.setState(new HeaterMedium());
         model.heaterStateChange();
       }

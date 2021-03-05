@@ -93,7 +93,7 @@ public class ThermometerViewController
   private boolean confirmation()
   {
     if (Double.parseDouble(highValue.getText()) <= 40
-        && Double.parseDouble(lowValue.getText()) >= 10)
+        && Double.parseDouble(lowValue.getText()) >= -20)
     {
       return false;
     }
@@ -105,7 +105,7 @@ public class ThermometerViewController
       lowValue.setText("10");
       alert.setHeaderText("Minimum temperature can not be lower than 10");
     }
-    else if (Double.parseDouble(lowValue.getText()) >= 10)
+    else if (Double.parseDouble(lowValue.getText()) >= -20)
     {
       highValue.setText("40");
       alert.setHeaderText("Maximum temperature can not be higher than 40");
