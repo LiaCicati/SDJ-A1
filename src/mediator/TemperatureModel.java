@@ -25,4 +25,6 @@ public interface TemperatureModel extends PropertyChangeListener,UnnamedProperty
   Heater getHeater();
   ArrayList<Temperature> getAllTemp();
 
+  void heaterStateChange();
+  String getHeaterStatus();
 }

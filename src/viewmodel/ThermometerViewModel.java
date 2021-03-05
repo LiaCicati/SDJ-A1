@@ -197,7 +197,7 @@ public class ThermometerViewModel implements PropertyChangeListener
           break;
 
         case "power":
-          updateHeaterPower((Integer) event.getNewValue());
+          powerProperty.set((String) event.getNewValue());
           break;
 
         case "criticalTemperatureChange":

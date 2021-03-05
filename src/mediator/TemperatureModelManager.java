@@ -109,18 +109,34 @@ public class TemperatureModelManager implements TemperatureModel
   @Override public void turnUp()
   {
     heater.clickUp();
+    if (getHeaterPower() == 3) {
+      heater.startTimer(this);
+    }
+    heaterStateChange();
   }
 
   @Override public void turnDown()
   {
 
     heater.clickDown();
+    heaterStateChange();
   }
 
   @Override public ArrayList<Temperature> getAllTemp()
   {
     return temperatureList.getAllTemp();
   }
+
+  @Override public void heaterStateChange()
+  {
+    property.firePropertyChange("power", null, getHeaterStatus());
+  }
+
+  @Override public String getHeaterStatus()
+  {
+    return heater.getStatus();
+  }
+
   @Override public Heater getHeater()
   {
     return heater;
@@ -137,7 +153,7 @@ public class TemperatureModelManager implements TemperatureModel
     firstTemperature.addListener(listener);
     secondTemperature.addListener(listener);
     outsideTemperature.addListener(listener);
-    heater.addListener(listener);
+
   }
 
   @Override public void removeListener(PropertyChangeListener listener)
@@ -146,7 +162,7 @@ public class TemperatureModelManager implements TemperatureModel
     firstTemperature.removeListener(listener);
     secondTemperature.removeListener(listener);
     outsideTemperature.removeListener(listener);
-    heater.removeListener(listener);
+
   }
 
   @Override public void propertyChange(PropertyChangeEvent event)
