@@ -43,7 +43,7 @@ public class OutTemperature implements Runnable, UnnamedPropertyChangeSubject
     while (true)
     {
       currentTemperature = externalTemperature(currentTemperature, minTemp, maxTemp);
-      property.firePropertyChange("outsideTemperature", null,
+      property.firePropertyChange("outdoorTemperature", null,
           new Temperature("Outside Temperature", currentTemperature));
       System.out
           .printf("Outside temperature: %.2f Min:%.2f Max:%.2f\n", currentTemperature,

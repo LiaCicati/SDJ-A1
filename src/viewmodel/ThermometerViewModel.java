@@ -50,7 +50,7 @@ public class ThermometerViewModel implements PropertyChangeListener
 
   public void getAll()
   {
-    updateHeaterPower(model.getHeaterPower());
+    powerProperty.setValue(model.getHeaterStatus());
     firstIndoorProperty.set(model.getFirstThermometerTemperature());
     secondIndoorProperty.set(model.getFirstThermometerTemperature());
     outdoorProperty.set(model.getOutsideTemperature());
@@ -63,24 +63,7 @@ public class ThermometerViewModel implements PropertyChangeListener
     checkWarnings();
   }
 
-  private void updateHeaterPower(int heaterPowerValue)
-  {
-    switch (heaterPowerValue)
-    {
-      case 0:
-        powerProperty.set("Off");
-        break;
-      case 1:
-        powerProperty.set("Low");
-        break;
-      case 2:
-        powerProperty.set("Medium");
-        break;
-      case 3:
-        powerProperty.set("High");
-        break;
-    }
-  }
+
 
   private void checkWarnings()
   {
@@ -192,7 +175,7 @@ public class ThermometerViewModel implements PropertyChangeListener
           checkWarnings();
           break;
 
-        case "outsideTemperature":
+        case "outdoorTemperature":
           outdoorProperty.set(((Temperature) event.getNewValue()).getValue());
           break;
 
