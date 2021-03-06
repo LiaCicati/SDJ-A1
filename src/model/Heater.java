@@ -11,11 +11,6 @@ public class Heater
     this.state = new HeaterOff();
   }
 
-  public void startTimer(TemperatureModel model)
-  {
-    state.startTimer(this, model);
-  }
-
   public void clickUp()
   {
     state.clickUp(this);

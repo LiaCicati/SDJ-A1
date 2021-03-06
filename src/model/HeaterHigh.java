@@ -1,19 +1,18 @@
 package model;
 
-import mediator.TemperatureModel;
-
 public class HeaterHigh extends HeaterState
 {
   private Thread timer;
+  private boolean completed;
 
-  public synchronized void startTimer(Heater heater, TemperatureModel model)
+  public HeaterHigh(Heater heater)
   {
-    this.timer = new Thread(() -> {
-      try
-      {
-        Thread.sleep(6000);
-        heater.setState(new HeaterMedium());
-        model.heaterStateChange();
+    System.out.println("Heater high");
+
+    timer  = new Thread(() -> {
+      try{
+        Thread.sleep(1000);
+        timeout(heater);
       }
       catch (InterruptedException e)
       {
@@ -21,6 +20,15 @@ public class HeaterHigh extends HeaterState
       }
     });
     timer.start();
+  }
+
+  private void timeout(Heater heater)
+  {
+    if(!completed)
+    {
+      heater.setState(new HeaterMedium());
+      completed = true;
+    }
   }
 
   @Override public void clickUp(Heater heater)

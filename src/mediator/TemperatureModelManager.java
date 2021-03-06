@@ -83,10 +83,6 @@ public class TemperatureModelManager implements TemperatureModel
   @Override public void turnUp()
   {
     heater.clickUp();
-    if (getHeaterPower() == 3)
-    {
-      heater.startTimer(this);
-    }
     heaterStateChange();
   }
 
