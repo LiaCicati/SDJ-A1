@@ -22,7 +22,7 @@ public class HeaterHigh extends HeaterState
     timer.start();
   }
 
-  private void timeout(Heater heater)
+  public void timeout(Heater heater)
   {
     if(!completed)
     {
