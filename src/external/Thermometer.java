@@ -1,13 +1,6 @@
 package external;
 
 import mediator.TemperatureModel;
-import model.Temperature;
-import utility.observer.subject.UnnamedPropertyChangeSubject;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Thermometer implements Runnable
 {

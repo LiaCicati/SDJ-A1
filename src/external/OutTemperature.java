@@ -1,12 +1,6 @@
 package external;
 
 import mediator.TemperatureModel;
-import model.Temperature;
-import utility.observer.subject.UnnamedPropertyChangeSubject;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 public class OutTemperature implements Runnable
 {
   private String id;

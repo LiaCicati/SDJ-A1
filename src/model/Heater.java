@@ -1,7 +1,5 @@
 package model;
 
-import mediator.TemperatureModel;
-
 public class Heater
 {
   private HeaterState state;
