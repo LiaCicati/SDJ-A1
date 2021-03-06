@@ -1,11 +1,6 @@
 package mediator;
-
-import external.OutTemperature;
-import external.Thermometer;
 import model.*;
 
-
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -13,9 +8,6 @@ import java.util.ArrayList;
 public class TemperatureModelManager implements TemperatureModel
 {
   private TemperatureList temperatureList;
-  private Thermometer firstTemperature;
-  private Thermometer secondTemperature;
-  private OutTemperature outsideTemperature;
   private PropertyChangeSupport property;
   private Heater heater;
   private Temperature highCriticalValue;
@@ -25,38 +17,13 @@ public class TemperatureModelManager implements TemperatureModel
   {
     heater = new Heater();
 
-    outsideTemperature = new OutTemperature(10,-20,20);
-    Thread outsideTempThread = new Thread(outsideTemperature);
-    outsideTempThread.setDaemon(true);
-    outsideTempThread.start();
-
-    firstTemperature = new Thermometer(10,"Indoor thermometer 1",1,this);
-    secondTemperature = new Thermometer(10, "Indoor thermometer 2",7, this);
-    Thread firstTempThread = new Thread(firstTemperature);
-    Thread secondTempThread = new Thread(secondTemperature);
-    firstTempThread.setDaemon(true);
-    secondTempThread.setDaemon(true);
-    firstTempThread.start();
-    secondTempThread.start();
-
-
-
     temperatureList = new TemperatureList();
-    property= new PropertyChangeSupport(this);
-    outsideTemperature.addListener(this);
-    firstTemperature.addListener(this);
-    secondTemperature.addListener(this);
+    property = new PropertyChangeSupport(this);
 
-    lowCriticalValue = new Temperature("lowCriticalValue",10);
-    highCriticalValue = new Temperature("highCriticalValue",20);
+    lowCriticalValue = new Temperature("lowCriticalValue", 10);
+    highCriticalValue = new Temperature("highCriticalValue", 20);
 
   }
-
-  @Override public void addTemperature(Temperature temperature)
-  {
-    temperatureList.addTemperature(temperature);
-  }
-
 
   @Override public Temperature getLowCriticalValue()
   {
@@ -73,43 +40,51 @@ public class TemperatureModelManager implements TemperatureModel
     return temperatureList.getSize();
   }
 
-
-  @Override public void setCriticalLowTemperature(double criticalLowTemperatureValue)
+  @Override public synchronized void addTemperature(String id, double value)
   {
-    lowCriticalValue = new Temperature("lowCriticalValue", criticalLowTemperatureValue);
-    property.firePropertyChange("criticalTemperatureChange",null, lowCriticalValue);
+    Temperature temperature = new Temperature(id, value);
+    Temperature old = getLastInsertedTemperature(id);
+    this.temperatureList.addTemperature(temperature);
+    if (old != null && old.getValue() != temperature.getValue())
+    {
+      System.out.println("-->" + temperature + " (from: " + old + ")");
+      property.firePropertyChange("temperature", old, temperature);
+    }
   }
 
-  @Override public void setCriticalHighTemperature(double criticalHighTemperatureValue)
+  public synchronized Temperature getLastInsertedTemperature(String id)
   {
-    highCriticalValue = new Temperature("highCriticalValue", criticalHighTemperatureValue);
-    property.firePropertyChange("criticalTemperatureChange", null, highCriticalValue);
+    return temperatureList.getLastTemperature(id);
   }
 
+  @Override public void setCriticalLowTemperature(
+      double criticalLowTemperatureValue)
+  {
+    lowCriticalValue = new Temperature("lowCriticalValue",
+        criticalLowTemperatureValue);
+    property.firePropertyChange("criticalTemperatureChange", null,
+        lowCriticalValue);
+  }
 
+  @Override public void setCriticalHighTemperature(
+      double criticalHighTemperatureValue)
+  {
+    highCriticalValue = new Temperature("highCriticalValue",
+        criticalHighTemperatureValue);
+    property.firePropertyChange("criticalTemperatureChange", null,
+        highCriticalValue);
+  }
 
   @Override public int getHeaterPower()
   {
     return heater.getPower();
   }
-  @Override public double getOutsideTemperature()
-  {
-    return outsideTemperature.getCurrentTemperature();
-  }
 
-  @Override public double getFirstThermometerTemperature()
-  {
-    return firstTemperature.getCurrentTemperature();
-  }
-
-  @Override public double getSecondThermometerTemperature()
-  {
-    return secondTemperature.getCurrentTemperature();
-  }
   @Override public void turnUp()
   {
     heater.clickUp();
-    if (getHeaterPower() == 3) {
+    if (getHeaterPower() == 3)
+    {
       heater.startTimer(this);
     }
     heaterStateChange();
@@ -117,7 +92,6 @@ public class TemperatureModelManager implements TemperatureModel
 
   @Override public void turnDown()
   {
-
     heater.clickDown();
     heaterStateChange();
   }
@@ -142,33 +116,14 @@ public class TemperatureModelManager implements TemperatureModel
     return heater;
   }
 
-  @Override public Temperature getTemperature(int index)
-  {
-    return temperatureList.getTemperature(index);
-  }
-
   @Override public void addListener(PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(listener);
-    firstTemperature.addListener(listener);
-    secondTemperature.addListener(listener);
-    outsideTemperature.addListener(listener);
-
   }
 
   @Override public void removeListener(PropertyChangeListener listener)
   {
     property.removePropertyChangeListener(listener);
-    firstTemperature.removeListener(listener);
-    secondTemperature.removeListener(listener);
-    outsideTemperature.removeListener(listener);
-
   }
 
-  @Override public void propertyChange(PropertyChangeEvent event)
-  {
-    if (event.getPropertyName().equals("ThermometerTemperature") || event.getPropertyName().equals("outdoorTemperature")){
-      temperatureList.addTemperature((Temperature) event.getNewValue());
-    }
-  }
 }

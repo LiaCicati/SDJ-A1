@@ -1,6 +1,5 @@
 package viewmodel;
 
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -38,6 +37,7 @@ public class DataTableView
 
   public Temperature getTemperature()
   {
-    return new Temperature(thermometerIdProperty.get(), temperatureProperty.get());
+    return new Temperature(thermometerIdProperty.get(),
+        temperatureProperty.get());
   }
 }

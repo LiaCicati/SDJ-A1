@@ -1,7 +1,6 @@
 package view;
 
 import javafx.beans.binding.Bindings;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
@@ -40,12 +39,10 @@ public class ThermometerViewController
     indoorThermometer2Warning.textProperty()
         .bind(viewModel.secondThermometerWarningProperty());
 
-    Bindings.bindBidirectional(indoorThermometer1.textProperty(),
-        viewModel.getFirstIndoorProperty(), new StringIntegerConverter(0));
-    Bindings.bindBidirectional(indoorThermometer2.textProperty(),
-        viewModel.getSecondIndoorProperty(), new StringIntegerConverter(0));
-    Bindings.bindBidirectional(outdoorThermometer.textProperty(),
-        viewModel.getOutdoorProperty(), new StringIntegerConverter(0));
+
+    Bindings.bindBidirectional(outdoorThermometer.textProperty(), viewModel.getOutdoorProperty(), new StringIntegerConverter(0));
+    Bindings.bindBidirectional(indoorThermometer1.textProperty(), viewModel.getFirstIndoorProperty(), new StringIntegerConverter(0));
+    Bindings.bindBidirectional(indoorThermometer2.textProperty(), viewModel.getSecondIndoorProperty(), new StringIntegerConverter(0));
 
     Bindings.bindBidirectional(criticalHighLabel.textProperty(),
         viewModel.getHighValueProperty(), new StringIntegerConverter(0));
@@ -56,7 +53,6 @@ public class ThermometerViewController
         viewModel.setCriticalLowTemperature(), new StringIntegerConverter(0));
     Bindings.bindBidirectional(highValue.textProperty(),
         viewModel.setCriticalHighTemperature(), new StringIntegerConverter(0));
-
   }
 
   public void reset()

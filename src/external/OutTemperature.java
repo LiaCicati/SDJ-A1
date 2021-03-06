@@ -1,26 +1,26 @@
 package external;
 
+import mediator.TemperatureModel;
 import model.Temperature;
 import utility.observer.subject.UnnamedPropertyChangeSubject;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class OutTemperature implements Runnable, UnnamedPropertyChangeSubject
+public class OutTemperature implements Runnable
 {
+  private String id;
+  private double outsideT;
+  private int sleepTime;
+  private TemperatureModel model;
 
-  private double currentTemperature;
-  private double minTemp;
-  private double maxTemp;
-  private PropertyChangeSupport property;
-
-  public OutTemperature(double currentTemperature, double minTemp, double maxTemp)
+  public OutTemperature(String id, TemperatureModel model, double outsideT,
+      int sleepTime)
   {
-
-    this.currentTemperature = currentTemperature;
-    this.minTemp = minTemp;
-    this.maxTemp = maxTemp;
-    property = new PropertyChangeSupport(this);
+    this.model = model;
+    this.id = id;
+    this.outsideT = outsideT;
+    this.sleepTime = sleepTime;
   }
 
   /*** Calculating the external temperature.* Values are only valid if the temperature is being measured
@@ -40,17 +40,15 @@ public class OutTemperature implements Runnable, UnnamedPropertyChangeSubject
 
   @Override public void run()
   {
+    model.addTemperature(id, outsideT);
+
     while (true)
     {
-      currentTemperature = externalTemperature(currentTemperature, minTemp, maxTemp);
-      property.firePropertyChange("outdoorTemperature", null,
-          new Temperature("Outside Temperature", currentTemperature));
-      System.out
-          .printf("Outside temperature: %.2f Min:%.2f Max:%.2f\n", currentTemperature,
-              maxTemp, maxTemp);
       try
       {
-        Thread.sleep(10000);
+        outsideT = externalTemperature(outsideT, -20, 20);
+        model.addTemperature(id, outsideT);
+        Thread.sleep(sleepTime * 1000);
       }
       catch (InterruptedException e)
       {
@@ -61,16 +59,6 @@ public class OutTemperature implements Runnable, UnnamedPropertyChangeSubject
 
   public double getCurrentTemperature()
   {
-    return currentTemperature;
-  }
-
-  @Override public void addListener(PropertyChangeListener listener)
-  {
-    property.addPropertyChangeListener(listener);
-  }
-
-  @Override public void removeListener(PropertyChangeListener listener)
-  {
-    property.addPropertyChangeListener(listener);
+    return outsideT;
   }
 }

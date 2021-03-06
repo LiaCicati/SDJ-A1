@@ -1,22 +1,14 @@
 package model;
 
 import mediator.TemperatureModel;
-import utility.observer.subject.UnnamedPropertyChangeSubject;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 public class Heater
 {
-
   private HeaterState state;
-
 
   public Heater()
   {
-
     this.state = new HeaterOff();
-
   }
 
   public void startTimer(TemperatureModel model)
@@ -38,6 +30,7 @@ public class Heater
   {
     this.state = state;
   }
+
   public String getStatus()
   {
     return state.getState();

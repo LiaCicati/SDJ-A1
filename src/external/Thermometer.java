@@ -9,23 +9,24 @@ import java.beans.PropertyChangeSupport;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Thermometer implements Runnable, UnnamedPropertyChangeSubject
+public class Thermometer implements Runnable
 {
   private String id;
   private double t;
   private int d;
   private TemperatureModel model;
-  private PropertyChangeSupport property;
+  private double outsideT;
+  private int sleepTime;
 
-
-
-  public Thermometer(double t,String id, int d, TemperatureModel model)
+  public Thermometer(String id, double outsideT, int sleepTime, double t, int d,
+      TemperatureModel model)
   {
     this.model = model;
     this.id = id;
     this.t = t;
     this.d = d;
-    this.property = new PropertyChangeSupport(this);
+    this.sleepTime = sleepTime;
+    this.outsideT = outsideT;
   }
 
   /*** Calculating the internal temperature in one of two locations.
@@ -38,7 +39,6 @@ public class Thermometer implements Runnable, UnnamedPropertyChangeSubject
    * *    where 1 is close to the heater and 7 is in theopposite corner* @param t0 the outdoor temperature (valid in the range [-20; 20])
    * * @param s the number of seconds since last measurement[4; 8]
    * * @return the temperature*/
-
 
   public double internalTemperature(double t, int p, int d, double t0, int s)
   {
@@ -54,22 +54,19 @@ public class Thermometer implements Runnable, UnnamedPropertyChangeSubject
     t = Math.min(Math.max(t - outdoorTerm + heaterTerm, t0), tMax);
     return t;
   }
-  public double getCurrentTemperature()
-  {
-    return t;
-  }
 
-  @Override public void run()
+  public void run()
   {
-    int waitTime = 6;
-    while (true){
-      t = internalTemperature(t,model.getHeaterPower(), d,model.getOutsideTemperature(),waitTime);
-      property.firePropertyChange("ThermometerTemperature", null, new Temperature(id, t));
-      System.out.println("Thermometer id: " + id + ", Temperature: " + t );
+    model.addTemperature(id, t);
 
+    while (true)
+    {
       try
       {
-        Thread.sleep(6000);
+        int seconds = (int) (Math.random() * 4 + 4);
+        t = internalTemperature(t, model.getHeaterPower(), d, outsideT, seconds);
+        model.addTemperature(id, t);
+        Thread.sleep(seconds * 1000);
       }
       catch (InterruptedException e)
       {
@@ -77,13 +74,9 @@ public class Thermometer implements Runnable, UnnamedPropertyChangeSubject
       }
     }
   }
-  @Override public void addListener(PropertyChangeListener listener)
-  {
-    property.addPropertyChangeListener(listener);
-  }
 
-  @Override public void removeListener(PropertyChangeListener listener)
+  public double getCurrentTemperature()
   {
-    property.addPropertyChangeListener(listener);
+    return t;
   }
 }

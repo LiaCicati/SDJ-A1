@@ -29,18 +29,18 @@ public class LogsViewModel implements PropertyChangeListener
     {
       this.list.add(new DataTableView(temperatures.get(i)));
     }
-    this.model.addListener( this);
+    this.model.addListener(this);
   }
 
-public ObservableList<DataTableView> getList()
-{
-  return list;
-}
-
+  public ObservableList<DataTableView> getList()
+  {
+    return list;
+  }
 
   @Override public void propertyChange(PropertyChangeEvent event)
   {
-    if (event.getPropertyName().equals("ThermometerTemperature") || event.getPropertyName().equals("outdoorTemperature")){
+    if (event.getPropertyName().equals("temperature"))
+    {
       list.add(new DataTableView((Temperature) event.getNewValue()));
     }
   }

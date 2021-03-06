@@ -46,15 +46,12 @@ public class ThermometerViewModel implements PropertyChangeListener
 
     getAll();
     model.addListener(this);
+
   }
 
   public void getAll()
   {
     powerProperty.setValue(model.getHeaterStatus());
-    firstIndoorProperty.set(model.getFirstThermometerTemperature());
-    secondIndoorProperty.set(model.getFirstThermometerTemperature());
-    outdoorProperty.set(model.getOutsideTemperature());
-
     setLowTemperature.set(model.getLowCriticalValue().getValue());
     setHighTemperature.set(model.getHighCriticalValue().getValue());
     highValueProperty.set(model.getHighCriticalValue().getValue());
@@ -63,24 +60,18 @@ public class ThermometerViewModel implements PropertyChangeListener
     checkWarnings();
   }
 
-
-
   private void checkWarnings()
   {
-    if (model.getFirstThermometerTemperature() > model.getHighCriticalValue()
-        .getValue())
+    if (firstIndoorProperty.get() > highValueProperty.get())
       firstThermometerWarning.set("Temperature is too high!");
-    else if (model.getFirstThermometerTemperature() < model
-        .getLowCriticalValue().getValue())
+    else if (firstIndoorProperty.get() < lowValueProperty.get())
       firstThermometerWarning.set("Temperature is too low!");
     else
       firstThermometerWarning.set("");
 
-    if (model.getSecondThermometerTemperature() > model.getHighCriticalValue()
-        .getValue())
+    if (secondIndoorProperty.get() > highValueProperty.get())
       secondThermometerWarning.set("Temperature is too high!");
-    else if (model.getSecondThermometerTemperature() < model
-        .getLowCriticalValue().getValue())
+    else if (secondIndoorProperty.get() < lowValueProperty.get())
       secondThermometerWarning.set("Temperature is too low!");
     else
       secondThermometerWarning.set("");
@@ -157,41 +148,40 @@ public class ThermometerViewModel implements PropertyChangeListener
     return secondThermometerWarning;
   }
 
-  @Override public void propertyChange(PropertyChangeEvent event)
+  @Override public void propertyChange(PropertyChangeEvent evt)
   {
     Platform.runLater(() -> {
-      switch (event.getPropertyName())
+      switch (evt.getPropertyName())
       {
-        case "ThermometerTemperature":
-          Temperature tmp = (Temperature) event.getNewValue();
-          if (tmp.getId().equals("Indoor thermometer 1"))
-          {
-            firstIndoorProperty.set(tmp.getValue());
-          }
-          else if (tmp.getId().equals("Indoor thermometer 2"))
-          {
-            secondIndoorProperty.set(tmp.getValue());
-          }
+        case "temperature":
+          Temperature temp = (Temperature) evt.getNewValue();
+
           checkWarnings();
-          break;
-
-        case "outdoorTemperature":
-          outdoorProperty.set(((Temperature) event.getNewValue()).getValue());
-          break;
-
-        case "power":
-          powerProperty.set((String) event.getNewValue());
-          break;
-
-        case "criticalTemperatureChange":
-          Temperature temp = (Temperature) event.getNewValue();
-          if (temp.getId().equals("lowCriticalValue"))
+          switch (temp.getId())
           {
-            lowValueProperty.set(temp.getValue());
+            case "Indoor temperature 1":
+              firstIndoorProperty.set(temp.getValue());
+              break;
+            case "Indoor temperature 2":
+              secondIndoorProperty.set(temp.getValue());
+              break;
+            case "Outdoor temperature":
+              outdoorProperty.set(temp.getValue());
+              break;
+
           }
-          else if (temp.getId().equals("highCriticalValue"))
+        case "power":
+          powerProperty.setValue(model.getHeaterStatus());
+          break;
+        case "criticalTemperatureChange":
+          Temperature temperature = (Temperature) evt.getNewValue();
+          if (temperature.getId().equals("lowCriticalValue"))
           {
-            highValueProperty.set(temp.getValue());
+            lowValueProperty.set(temperature.getValue());
+          }
+          else if (temperature.getId().equals("highCriticalValue"))
+          {
+            highValueProperty.set(temperature.getValue());
           }
           checkWarnings();
           break;

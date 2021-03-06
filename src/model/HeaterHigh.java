@@ -28,13 +28,10 @@ public class HeaterHigh extends HeaterState
     System.out.println("Max state reached");
   }
 
-
   @Override public void clickDown(Heater heater)
   {
-
     timer.interrupt();
     heater.setState(new HeaterMedium());
-
   }
 
   @Override public String getState()

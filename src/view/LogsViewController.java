@@ -36,7 +36,6 @@ public class LogsViewController
     timeColumn
         .setCellValueFactory(cellData -> cellData.getValue().getTimeProperty());
     reset();
-
   }
 
   public void reset()
