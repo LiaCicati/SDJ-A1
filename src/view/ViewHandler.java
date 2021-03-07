@@ -24,7 +24,6 @@ public class ViewHandler
   {
     this.primaryStage = primaryStage;
     openView("thermometers");
-
   }
 
   public void openView(String id)
