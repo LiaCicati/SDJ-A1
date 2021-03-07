@@ -98,8 +98,8 @@ public class ThermometerViewController
     alert.setTitle("Warning");
     if (Double.parseDouble(highValue.getText()) <= 40)
     {
-      lowValue.setText("10");
-      alert.setHeaderText("Minimum temperature can not be lower than 10");
+      lowValue.setText("-20");
+      alert.setHeaderText("Minimum temperature can not be lower than -20");
     }
     else if (Double.parseDouble(lowValue.getText()) >= -20)
     {
