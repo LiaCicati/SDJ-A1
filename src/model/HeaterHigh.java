@@ -11,7 +11,7 @@ public class HeaterHigh extends HeaterState
 
     timer  = new Thread(() -> {
       try{
-        Thread.sleep(1000);
+        Thread.sleep(4000);
         timeout(heater);
       }
       catch (InterruptedException e)
